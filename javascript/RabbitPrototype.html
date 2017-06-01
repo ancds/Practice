@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+	<script type="text/javascript">
+		
+
+	function Rabbit(type){
+		this.type = type;
+
+		
+	}
+	Rabbit.prototype.speak = function(){
+			console.log(this.type + ' type is speaking from Rabbit');
+	}
+
+	var cuteRabbit = new Rabbit('cute');
+	var badRabbit = new Rabbit('bad');
+
+	console.log(Rabbit.prototype);
+
+	badRabbit.speak();
+
+	</script>
+</body>
+</html>

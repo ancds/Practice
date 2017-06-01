@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+	
+	<canvas ></canvas> 
+	<script type="text/javascript">
+		var cx = document.querySelector("canvas").getContext("2d"); 
+		var img = document.createElement('img');
+		img.src = 'img/player.png';
+
+		var spriteW = 24; spriteH = 30;
+		img.addEventListener('load', function(){
+
+			var cycle = 0;
+			flipHorizontally(cx, 100 + spriteW / 2 );
+			setInterval(function(){
+
+				cx.clearRect(100, 0, spriteW, spriteH);
+				cx.drawImage(img, cycle*spriteW, 0, spriteW, spriteH, 100, 0, spriteW, spriteH);
+				cycle = (cycle + 1 ) % 8;
+
+			}, 120);
+
+		});
+
+		function flipHorizontally(context, around){
+			context.translate(around, 0);
+			context.scale(-1, 1);
+			context.translate(-around, 0);
+		}
+
+
+	</script>
+</body>
+</html>

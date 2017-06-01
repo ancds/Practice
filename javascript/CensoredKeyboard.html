@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+	
+	<input type="text" />
+
+	<script type="text/javascript">
+
+		var input = document.querySelector('input');
+
+		input.addEventListener('keypress', function(event){
+
+			var char = String.fromCharCode(event.charCode);
+			var forbidden = ['Q', 'W', 'X'];
+
+			var isForbidden = false;
+			forbidden.forEach(function(elem){
+				if(char == elem){
+					isForbidden = true;
+					return false;
+				}
+			});
+
+			if(isForbidden){
+				event.preventDefault();
+			}
+
+		});
+
+	</script>
+	
+</body>
+</html>

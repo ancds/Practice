@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+	<script type="text/javascript">
+
+	var INIFile = 
+	'searchengine=http://www.google.com/search?q=$1\r\n' + 
+	'spitefulness=9.7\r\n' + 
+	'\r\n' + 
+	'; comments are preceded by a semicolon...\r\n' + 
+	'; each section concerns an individual enemy\r\n' + 
+	'[larry]\r\n' + 
+	'fullname=Larry Doe\r\n' +
+	'type=kindergarten bully \r\n' + 
+	'website=http://www.geocities.com/CapeCanaveral/11451\r\n' + 
+	'\r\n' + 
+	'[gargamel]\r\n' + 
+	'fullname=Gargamel \r\n' + 
+	'type=evil sorcerer \r\n' + 
+	'outputdir=/home/marijn/enemies/gargamel\r\n';
+
+	var categories = parseINI(INIFile);
+	appendInBody(categories);
+
+	function parseINI(str){
+
+		var currentSection = {name: null, fields: []};
+		var categories = [currentSection];
+
+		str.split(/\r?\n/).forEach(function(line){
+
+			var match;
+
+			if(/^\s*(;.*)?$/.test(line)){
+				return;
+
+			}else if(match = line.match(/^\[(.*)\]$/)){
+				currentSection = {name: match[1], fields: []};
+				categories.push(currentSection);
+
+			}else if(match = line.match(/^(\w+)=(.*)$/)){
+				currentSection.fields.push({name: match[1], value: match[2]});
+
+			}else{
+				throw new Error('Line ' + line + ' is invalid.');
+			}
+
+		});
+
+		return categories;
+
+	}
+
+
+	function appendInBody(str){
+			var div = $('body pre.data');
+			if(div.length != 0){
+				if (typeof str == 'string' || str instanceof String){
+					div.append(str);
+				}else{
+					div.append(str.toString());
+				}
+
+			}else{
+				$('body').append('<pre class="data" style="white-space: pre"></pre>');
+				appendInBody(str);
+			}
+	}
+
+	</script>
+</body>
+</html>

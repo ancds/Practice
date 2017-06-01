@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<style>
+	  .trail { /* className for the trail elements */
+	    position: absolute;
+	    height: 6px; width: 6px;
+	    border-radius: 3px;
+	    background: teal;
+	  }
+	  body {
+	    height: 300px;
+	  }
+	</style>
+</head>
+<body>
+
+	<script type="text/javascript">
+
+		var trails = [];
+		for(var i = 0; i < 12; i++ ){
+			var node = document.createElement('div');
+			node.className = 'trail';
+			document.body.appendChild(node);
+			trails.push(node);
+		}
+
+		var currentTrail = 0;
+		var schedule = false, lastEvent;
+		addEventListener('mousemove', function(event){
+
+			if(!schedule){
+
+				schedule = true;
+
+				var timeout = setTimeout(function(){
+
+					var trailElem = trails[currentTrail];
+
+					var mouseX = event.pageX;
+					var mouseY = event.pageY;
+
+					trailElem.style.left = mouseX + 'px';
+					trailElem.style.top = mouseY + 'px';
+
+					currentTrail = (currentTrail+1) % trails.length;
+					schedule = false;
+				} , 30);
+				
+			}	
+
+		});
+
+
+	</script>
+	
+</body>
+</html>
